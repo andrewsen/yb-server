@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
     mosqpp::lib_init();
 
     MQTTServer *ybServer = new MQTTServer(MQTT_ID, BROKER_ADDRESS, MQTT_PORT);
-    syslog(LOG_DEBUG, "YB MQTT Server created");
+    syslog(LOG_DEBUG, "YB MQTT Server created. Version %s", GIT_TAG);
 
     int rc = 1;
     while(rc)

@@ -3,6 +3,10 @@
 
 #include <syslog.h>
 
+#ifndef GIT_TAG
+    #define GIT_TAG "undefined"
+#endif
+
 constexpr const char* MQTT_ID = "YBServer";
 constexpr const char* BROKER_ADDRESS = "localhost";
 constexpr int MQTT_PORT = 1883;
