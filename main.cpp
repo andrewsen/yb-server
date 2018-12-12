@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     {
         std::this_thread::sleep_for(60s);
         syslog(LOG_DEBUG, "Requesting status");
-        ybServer->Publish(MQTT_STATUS_REQ_TOPIC, "");
+        ybServer->Publish(MQTT_STATUS_REQ_TOPIC, "{\"type\": \"request\"}");
     }
 
     mosqpp::lib_cleanup();
