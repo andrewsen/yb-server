@@ -23,5 +23,5 @@ script:
     - export CXX=/usr/bin/g++-7
     - gcc -v && g++ -v && cmake --version
     - cmake .
-    - make && make test
+    - make
 
