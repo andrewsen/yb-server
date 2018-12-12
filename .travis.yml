@@ -1,9 +1,16 @@
 dist: xenial
-
 language: cpp
+
 os:
     - linux
-    
+
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - g++-7
+
 compiler:
     - gcc
     
@@ -12,9 +19,11 @@ env:
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
-    
+    - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+
 before_install:
     - sudo apt-get install -y libmosquittopp-dev
+    - eval "${MATRIX_EVAL}"
     
 before_script:
     - mkdir build
