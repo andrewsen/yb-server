@@ -1,0 +1,25 @@
+dist: xenial
+
+language: cpp
+os:
+    - linux
+    
+compiler:
+    - gcc
+    
+env:
+    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
+    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
+    - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+    - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+    
+before_install:
+    - sudo apt-get install -y libmosquittopp-dev
+    
+before_script:
+    - mkdir build
+    - cd build
+    - cmake ..
+    
+script: make && make test
+
