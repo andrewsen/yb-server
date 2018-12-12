@@ -1,0 +1,6 @@
+This is a server part for our smart home project 'Yuriy Butskiy Smart Home'
+
+To build it you need libmosquittopp-dev, cmake and g++-7
+1. Run cmake .
+2. Run make .
+3. Run ybhome-server
