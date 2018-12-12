@@ -17,6 +17,7 @@ compiler:
 
 before_install:
     - sudo apt-get install -y libmosquittopp-dev
+    - sudo pip install -U cpplint
 
 script:
     - export CC=/usr/bin/gcc-7
@@ -25,3 +26,5 @@ script:
     - cmake .
     - make
 
+after_success:
+    - cpplint *.cpp *.h
