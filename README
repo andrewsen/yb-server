@@ -4,3 +4,12 @@ To build it you need libmosquittopp-dev, cmake and g++-7. Also you have to insta
 1. Run cmake .
 2. Run make .
 3. Run ybhome-server
+
+Docker images:
+1. Building and running production image
+    a) docker build -t yb-image -f docker-runner/Dockerfile .
+    b) docker run yb-image
+    
+2. Building and running build image. Target binary will be saved in <full_path_to_out_dir>
+    a) docker build -t yb-image -f docker-builder/Dockerfile .
+    b) docker run -v <full_path_to_out_dir>:/mnt/out yb-image
