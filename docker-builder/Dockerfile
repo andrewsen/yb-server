@@ -9,4 +9,4 @@ ENV CXX=/usr/bin/g++-7
 
 RUN apt update && apt install -y libmosquittopp-dev cmake g++-7
 
-CMD cmake .. && make && ./ybhome-server
+CMD cmake .. && make && cp ybhome-server /mnt/out
