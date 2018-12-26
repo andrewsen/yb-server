@@ -13,6 +13,7 @@ int main(int argc, char* argv[])
     MQTTServer *ybServer = new MQTTServer(MQTT_ID, BROKER_ADDRESS, MQTT_PORT);
     syslog(LOG_DEBUG, "YB MQTT Server created. Version %s", GIT_TAG);
 
+    int reconnectCounter = 1;
     int rc = 1;
     while(rc)
     {
@@ -21,6 +22,11 @@ int main(int argc, char* argv[])
         if (rc) {
             syslog(LOG_DEBUG, "Reconnect");
             ybServer->reconnect_async();
+
+            // Exponential Backoff
+            std::this_thread::sleep_for(std::chrono::seconds(reconnectCounter));
+            if (reconnectCounter < 256 /* seconds */ )
+                reconnectCounter *= 2;
         }
         else {
             ybServer->subscribe(nullptr, MQTT_SERVER_TOPIC);

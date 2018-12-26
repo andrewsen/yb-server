@@ -1,30 +1,39 @@
 dist: xenial
-language: cpp
+matrix:
+  include:
+  - language: cpp
 
-os:
-    - linux
+    os:
+        - linux
 
-addons:
-    apt:
-        sources:
-            - ubuntu-toolchain-r-test
-        packages:
-            - g++-7
-            - gcc-7
+    services:
+        - docker
 
-compiler:
-    - gcc
+    before_install:
+        - sudo pip install -U cpplint
 
-before_install:
-    - sudo apt-get install -y libmosquittopp-dev
-    - sudo pip install -U cpplint
+    script:
+        - mkdir /tmp/out
+        - docker build -t yb-image -f docker-builder/Dockerfile .
+        - docker run -v /tmp/out:/mnt/out yb-image
+        - docker run yb-image
+        - cp /tmp/out/* .
 
-script:
-    - export CC=/usr/bin/gcc-7
-    - export CXX=/usr/bin/g++-7
-    - gcc -v && g++ -v && cmake --version
-    - cmake .
-    - make
+    after_success:
+        - cpplint *.cpp *.h
 
-after_success:
-    - cpplint *.cpp *.h
+  - language: cpp
+
+    os:
+        - linux
+
+    services:
+        - docker
+
+    before_install:
+        - sudo pip install -U cpplint
+
+    script:
+        - docker build -t yb-image -f docker-runner/Dockerfile .
+    #    - docker run yb-image
+
