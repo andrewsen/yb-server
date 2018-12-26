@@ -1,39 +1,41 @@
 dist: xenial
-language: cpp
+matrix:
+    include:
+    - language: cpp
 
-os:
-    - linux
-    
-services:
-    - docker
+        os:
+            - linux
 
-before_install:
-    - sudo pip install -U cpplint
+        services:
+            - docker
 
-script:
-    - mkdir /tmp/out
-    - docker build -t yb-image -f docker-builder/Dockerfile .
-    - docker run -v /tmp/out:/mnt/out yb-image
-    - docker run yb-image
-    - cp /tmp/out .
+        before_install:
+            - sudo pip install -U cpplint
 
-after_success:
-    - cpplint *.cpp *.h
+        script:
+            - mkdir /tmp/out
+            - docker build -t yb-image -f docker-builder/Dockerfile .
+            - docker run -v /tmp/out:/mnt/out yb-image
+            - docker run yb-image
+            - cp /tmp/out .
+
+        after_success:
+            - cpplint *.cpp *.h
 
 #################################################################
-    
-language: cpp
 
-os:
-    - linux
-    
-services:
-    - docker
-    
-before_install:
-    - sudo pip install -U cpplint
+    - language: cpp
 
-script:
-    - docker build -t yb-image -f docker-runner/Dockerfile .
-#    - docker run yb-image
+        os:
+            - linux
+
+        services:
+            - docker
+
+        before_install:
+            - sudo pip install -U cpplint
+
+        script:
+            - docker build -t yb-image -f docker-runner/Dockerfile .
+        #    - docker run yb-image
 
