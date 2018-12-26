@@ -22,8 +22,6 @@ matrix:
         after_success:
             - cpplint *.cpp *.h
 
-#################################################################
-
     - language: cpp
 
         os:
